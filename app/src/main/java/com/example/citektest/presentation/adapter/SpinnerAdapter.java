@@ -1,4 +1,4 @@
-package com.example.citektest.presentation;
+package com.example.citektest.presentation.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.example.citektest.R;
 import com.example.citektest.domain.model.User;
-import com.example.citektest.presentation.mvi.OnSpinnerRetryClickListenerCallback;
+import com.example.citektest.presentation.utils.OnSpinnerRetryClickListenerCallback;
 
 import java.util.List;
 
@@ -111,6 +111,7 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
 
     public void setLoading(boolean loading) {
         isLoading = loading;
+        hasError = false;
         users.clear();
         //item for showing "Select User" view
         addPlaceHolderItem();
@@ -122,6 +123,7 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
 
     public void setHasError(boolean hasError) {
         this.hasError = hasError;
+        this.isLoading = false;
         users.clear();
         //item for showing "Select User" view
         addPlaceHolderItem();
@@ -129,6 +131,13 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
         addPlaceHolderItem();
 
         notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        if (isLoading || hasError)
+            return false;
+        return !(position == 0);
     }
 
     public void setUsers(List<User> users) {
@@ -139,6 +148,15 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
         addPlaceHolderItem();
         this.users.addAll(users);
         notifyDataSetChanged();
+    }
+
+    public User getUserByLogin(String login){
+        User response = null;
+        for (User user: users){
+            if (user.getUser().equals(login))
+                response = user;
+        }
+        return response;
     }
 
     private void addPlaceHolderItem() {

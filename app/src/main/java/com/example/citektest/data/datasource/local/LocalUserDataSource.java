@@ -1,7 +1,13 @@
 package com.example.citektest.data.datasource.local;
 
 import com.example.citektest.data.datasource.DataSource;
-import com.example.citektest.domain.model.User;
+import com.example.citektest.data.model.UserData;
 
-public interface LocalDataSource<T> extends DataSource<T> {
+import java.util.List;
+
+import io.reactivex.Single;
+
+public interface LocalUserDataSource extends DataSource {
+
+    Single<List<UserData>> getData();
 }

@@ -1,2 +1,7 @@
-package com.example.citektest.data.datasource;public interface DataSource {
+package com.example.citektest.data.datasource;
+
+import java.util.List;
+
+public interface DataSource {
+
 }

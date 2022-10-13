@@ -1,4 +1,4 @@
-package com.example.citektest.data.mapper;
+package com.example.citektest.domain.mapper;
 
 import com.example.citektest.data.model.UserData;
 import com.example.citektest.domain.mapper.Mapper;

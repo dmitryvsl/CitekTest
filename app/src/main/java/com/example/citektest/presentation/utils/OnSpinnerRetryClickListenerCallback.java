@@ -1,4 +1,4 @@
-package com.example.citektest.presentation.mvi;
+package com.example.citektest.presentation.utils;
 
 import com.example.citektest.domain.model.User;
 

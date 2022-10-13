@@ -1,4 +1,4 @@
-package com.example.citektest.presentation;
+package com.example.citektest.presentation.viewmodel;
 
 import android.util.Log;
 
@@ -10,6 +10,7 @@ import com.example.citektest.domain.model.User;
 import com.example.citektest.domain.use_cases.GetUsersUseCase;
 import com.example.citektest.presentation.mvi.Event;
 import com.example.citektest.presentation.utils.ErrorHandler;
+import com.example.citektest.presentation.utils.NetworkUtils;
 
 import java.nio.channels.Channel;
 import java.util.List;
@@ -37,17 +38,23 @@ public class UserViewModel extends ViewModel {
     private Disposable disposable;
 
     private final GetUsersUseCase getUsersUseCase;
+    NetworkUtils networkUtils;
 
-    MutableLiveData<Event> _events = new MutableLiveData<>(new Event.Initial());
-    LiveData<Event> events = _events;
+    private final MutableLiveData<Event> _events = new MutableLiveData<>(new Event.Initial());
+    public LiveData<Event> events = _events;
 
 
     @Inject
-    public UserViewModel(GetUsersUseCase getUsersUseCase) {
+    public UserViewModel(GetUsersUseCase getUsersUseCase, NetworkUtils networkUtils) {
         this.getUsersUseCase = getUsersUseCase;
+        this.networkUtils = networkUtils;
     }
 
     public void getUsers(String imei) {
+        if (!networkUtils.isNetworkConnected()){
+            _events.postValue(new Event.ShowNoNetworkConnection());
+            return;
+        }
         _events.postValue(new Event.UserListLoading());
         disposable = getUsersUseCase.execute(imei)
                 .observeOn(Schedulers.io())
