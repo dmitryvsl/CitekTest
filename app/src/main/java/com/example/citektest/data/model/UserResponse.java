@@ -1,6 +1,5 @@
 package com.example.citektest.data.model;
 
-import com.example.citektest.domain.model.User;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

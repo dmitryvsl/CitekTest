@@ -11,4 +11,11 @@
     <string name="retry">Retry</string>
     <string name="no_users_found">No users found</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="no_one_user_selected">No one user selected</string>
+    <string name="empty_password">Empty password</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="continue_work">Continue Work:</string>
+    <string name="response">Response:</string>
+    <string name="photo_hash">Photo Hash:</string>
+    <string name="current_date">Current Date:</string>
 </resources>

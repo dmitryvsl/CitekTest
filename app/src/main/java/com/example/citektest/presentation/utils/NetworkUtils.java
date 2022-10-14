@@ -2,7 +2,6 @@ package com.example.citektest.presentation.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.util.Log;
 
 public class NetworkUtils {
 

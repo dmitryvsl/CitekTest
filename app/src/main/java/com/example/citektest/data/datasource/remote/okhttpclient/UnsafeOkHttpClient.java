@@ -1,6 +1,4 @@
-package com.example.citektest.data.datasource.remote;
-
-import com.example.citektest.presentation.utils.BasicAuthInterceptor;
+package com.example.citektest.data.datasource.remote.okhttpclient;
 
 import java.security.cert.CertificateException;
 

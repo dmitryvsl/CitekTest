@@ -1,7 +1,6 @@
 package com.example.citektest.domain.mapper;
 
 import com.example.citektest.data.model.UserData;
-import com.example.citektest.domain.mapper.Mapper;
 import com.example.citektest.domain.model.User;
 
 public class UserDataToUserMapper implements Mapper<UserData, User> {

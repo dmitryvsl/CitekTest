@@ -1,4 +1,4 @@
-package com.example.citektest.presentation.utils;
+package com.example.citektest.data.datasource.remote.okhttpclient;
 
 import java.io.IOException;
 

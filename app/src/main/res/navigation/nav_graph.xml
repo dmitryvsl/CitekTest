@@ -7,16 +7,20 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.citektest.presentation.LoginFragment"
+        android:name="com.example.citektest.presentation.fragment_login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_userListFragment"
-            app:destination="@id/userListFragment" />
+            app:destination="@id/userListFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.example.citektest.UserListFragment"
+        android:name="com.example.citektest.presentation.fragment_list.ListFragment"
         android:label="fragment_user_list"
-        tools:layout="@layout/fragment_user_list" />
+        tools:layout="@layout/fragment_list" />
 </navigation>

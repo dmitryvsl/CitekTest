@@ -4,9 +4,6 @@ import com.example.citektest.domain.mapper.Mapper;
 import com.example.citektest.domain.model.User;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserData {
 
     @SerializedName("User")

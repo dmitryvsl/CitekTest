@@ -4,13 +4,18 @@ import android.content.Context;
 
 import com.example.citektest.App;
 import com.example.citektest.data.datasource.remote.ApiService;
-import com.example.citektest.data.datasource.remote.UnsafeOkHttpClient;
+import com.example.citektest.data.datasource.remote.okhttpclient.BasicAuthInterceptor;
+import com.example.citektest.data.datasource.remote.okhttpclient.UnsafeOkHttpClient;
 import com.example.citektest.domain.repository.UserRepository;
+import com.example.citektest.domain.use_cases.AuthUserUseCase;
+import com.example.citektest.domain.use_cases.GetAuthenticationUseCase;
 import com.example.citektest.domain.use_cases.GetUsersUseCase;
-import com.example.citektest.presentation.mvi.EventHandlerFactory;
+import com.example.citektest.presentation.fragment_list.event.ListEventHandlerFactory;
+import com.example.citektest.presentation.fragment_list.viewmodel.ListViewModelFactory;
+import com.example.citektest.presentation.fragment_login.event.LoginEventHandlerFactory;
+import com.example.citektest.presentation.fragment_login.viewmodel.UserViewModelFactory;
 import com.example.citektest.presentation.utils.NetworkUtils;
-import com.example.citektest.presentation.viewmodel.UserViewModelFactory;
-import com.example.citektest.presentation.utils.BasicAuthInterceptor;
+import com.example.citektest.presentation.utils.UserDataValidator;
 
 import javax.inject.Singleton;
 
@@ -66,19 +71,43 @@ public class AppModule {
     }
 
     @Provides
-    UserViewModelFactory provideFactory(GetUsersUseCase getUsersUseCase, NetworkUtils networkUtils){
-        return new UserViewModelFactory(getUsersUseCase, networkUtils);
+    @Singleton
+    AuthUserUseCase provideAuthUserUseCase(UserRepository repository){
+        return new AuthUserUseCase(repository);
+    }
+
+    @Provides
+    UserViewModelFactory provideFactory(GetUsersUseCase getUsersUseCase, AuthUserUseCase authUserUseCase,NetworkUtils networkUtils, UserDataValidator validator){
+        return new UserViewModelFactory(getUsersUseCase,authUserUseCase,networkUtils, validator);
     }
 
     @Provides
     @Singleton
-    EventHandlerFactory provideEventFactory(){
-        return new EventHandlerFactory();
+    LoginEventHandlerFactory provideEventFactory(){
+        return new LoginEventHandlerFactory();
+    }
+
+    @Provides
+    @Singleton
+    ListEventHandlerFactory provideEventHandlerFactory(){
+        return new ListEventHandlerFactory();
+    }
+
+    @Provides
+    @Singleton
+    ListViewModelFactory provideListViewModelFactory(GetAuthenticationUseCase useCase){
+        return new ListViewModelFactory(useCase);
     }
 
     @Provides
     @Singleton
     NetworkUtils provideNetworkUtils(Context context){
         return new NetworkUtils(context);
+    }
+
+    @Provides
+    @Singleton
+    UserDataValidator provideUserDataValidator(){
+        return new UserDataValidator();
     }
 }

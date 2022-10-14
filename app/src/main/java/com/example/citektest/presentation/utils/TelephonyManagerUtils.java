@@ -1,7 +1,6 @@
 package com.example.citektest.presentation.utils;
 
 import android.content.Context;
-import android.telephony.TelephonyManager;
 
 import java.util.UUID;
 

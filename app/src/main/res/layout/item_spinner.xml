@@ -15,12 +15,10 @@
         android:layout_gravity="start"
         android:layout_marginHorizontal="12dp"
         android:textColor="?attr/colorOnSecondary"
-        android:textSize="18sp"
-        android:maxLines="2"
-        android:ellipsize="middle"
+        android:textSize="16sp"
         android:paddingVertical="12dp"
-        tools:text="@string/select_user"/>
-
+        tools:text="@string/select_user"
+        />
     <ProgressBar
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"

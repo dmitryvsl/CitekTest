@@ -13,4 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-/app/src/main/java/com/example/citektest/presentation/utils/BasicAuthInterceptor.java
+/app/src/main/java/com/example/citektest/data/datasource/remote/okhttpclient/BasicAuthInterceptor.java

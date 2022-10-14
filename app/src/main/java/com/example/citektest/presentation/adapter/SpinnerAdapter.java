@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.example.citektest.R;
 import com.example.citektest.domain.model.User;
-import com.example.citektest.presentation.utils.OnSpinnerRetryClickListenerCallback;
+import com.example.citektest.presentation.fragment_login.OnSpinnerRetryClickListenerCallback;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
     private final OnSpinnerRetryClickListenerCallback callback;
     private boolean isLoading = false;
     private List<User> users;
-    private boolean hasError;
+    private String errorMessage;
 
 
     @NonNull
@@ -77,6 +77,7 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
 
     private void setItem(View view, User user) {
         TextView tv = view.findViewById(R.id.user_name);
+        TextView errorTv = view.findViewById(R.id.error_tv);
         ProgressBar progressBar = view.findViewById(R.id.progress_circular);
         LinearLayout errorLayout = view.findViewById(R.id.error_layout);
         Button retryBtn = view.findViewById(R.id.retry_btn);
@@ -95,9 +96,10 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
             return;
         }
 
-        if (hasError) {
+        if (errorMessage != null) {
             tv.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
+            errorTv.setText(errorMessage);
             progressBar.setVisibility(View.GONE);
             return;
         }
@@ -111,7 +113,7 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
 
     public void setLoading(boolean loading) {
         isLoading = loading;
-        hasError = false;
+        errorMessage = null;
         users.clear();
         //item for showing "Select User" view
         addPlaceHolderItem();
@@ -121,8 +123,8 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
         notifyDataSetChanged();
     }
 
-    public void setHasError(boolean hasError) {
-        this.hasError = hasError;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
         this.isLoading = false;
         users.clear();
         //item for showing "Select User" view
@@ -135,13 +137,13 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
 
     @Override
     public boolean isEnabled(int position) {
-        if (isLoading || hasError)
+        if (isLoading || errorMessage != null)
             return false;
         return !(position == 0);
     }
 
     public void setUsers(List<User> users) {
-        hasError = false;
+        errorMessage = null;
         isLoading = false;
 
         this.users.clear();
@@ -150,13 +152,8 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
         notifyDataSetChanged();
     }
 
-    public User getUserByLogin(String login){
-        User response = null;
-        for (User user: users){
-            if (user.getUser().equals(login))
-                response = user;
-        }
-        return response;
+    public User getUserByPosition(int position){
+        return users.get(position);
     }
 
     private void addPlaceHolderItem() {
